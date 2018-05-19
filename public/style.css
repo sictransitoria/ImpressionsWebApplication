@@ -1,0 +1,52 @@
+body {
+	font-family: Avenir Next, sans-serif;
+	background-color: #f2f2f2;
+	color: #000000;
+	margin: 0 auto;
+
+}
+
+#container {
+	width: 50%;
+
+}
+
+#username_text {
+	width: 25%;
+
+}
+
+#filefile {
+	width: 42%;
+
+}
+
+#header-upload {
+	font-size: 50px;
+	font-weight: 100;
+
+}
+
+textarea {
+	resize: none;
+
+}
+
+#button {
+    background-color: #80d4ff;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+#button:hover {
+	transition: 1s;
+	background-color: #00aaff;
+
+}

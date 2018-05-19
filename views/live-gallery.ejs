@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+	<html>
+	<head>
+		<title>Impressions | A Photo Sharing App</title>
+	</head>
+	<body>
+
+		<h1>Welcome to Impressions.</h1>
+
+		<% for(let i in rows) { %>
+		
+	<div>
+		<img src="thumbnails/<%= rows[i].dataValues.image %>">
+	</div>
+	
+		<p><%= rows[i].dataValues.username %></p>
+		<p><%= rows[i].dataValues.comment %></p> 
+
+		<% } %>
+
+	</body>
+</html>
