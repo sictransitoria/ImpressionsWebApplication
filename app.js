@@ -5,8 +5,10 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const multer = require('multer');
 const fs = require('fs');
-const Sequelize = require('sequelize');
+const LocalStrategy = require('passport-local').Strategy
+const Sequelize = require('sequelize');s 
 
+// Port 3000
 const PORT = process.env.PORT || 3000;
 
 const Op = Sequelize.Op
@@ -25,6 +27,7 @@ const sequelize = new Sequelize('mockinstagram', 'postgres', 'Runner4life!', {
 	}
 })
 
+// Create a Table
 const Pic = sequelize.define('pic', {
 	username: Sequelize.STRING,
 	image: Sequelize.STRING,
@@ -51,7 +54,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(express.static('public'))
 
-// Upload Route
+// Upload Photo to feed.ejs & \\public\thumbnails 
 app.post('/upload', (req, res) => {
 	upload(req, res, (err) => {
 		if (err){
