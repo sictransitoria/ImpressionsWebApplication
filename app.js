@@ -9,7 +9,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy
 const Sequelize = require('sequelize');
 
-// Protect Yoself
+// Protect yourself
 const dotenv = require('dotenv')
 require('dotenv').config()
 
@@ -59,7 +59,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(express.static('public'))
 
-// Upload Photo to feed.ejs & \\public\thumbnails 
+// Upload Photo to feed.ejs & \\public\thumbnails
 app.post('/upload', (req, res) => {
 	upload(req, res, (err) => {
 		if (err){
@@ -71,7 +71,7 @@ app.post('/upload', (req, res) => {
 	sharp(req.file.path)
 	.resize(400, 400)
 	.toFile('public/thumbnails/' + req.file.filename, function(err) {
-		
+
 	})
   	Pic.create({
   		username: req.body.username,
