@@ -5,8 +5,13 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const multer = require('multer');
 const fs = require('fs');
+const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy
-const Sequelize = require('sequelize');s 
+const Sequelize = require('sequelize');
+
+// Protect Yoself
+const dotenv = require('dotenv')
+require('dotenv').config()
 
 // Port 3000
 const PORT = process.env.PORT || 3000;
@@ -88,6 +93,7 @@ app.get('/', (req, res) => {
   	return res.render('live-gallery', {rows})
   })
 })
+
 
 app.listen(PORT, ()=>{
 	console.log(`..Server Started for Impressions..`)

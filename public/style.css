@@ -2,12 +2,13 @@ body {
 	font-family: Avenir Next, sans-serif;
 	background-color: #f2f2f2;
 	color: #000000;
-	margin: 0 auto;
+	margin: 200px 0px 0px 10px;
 
 }
 
 #container {
 	width: 50%;
+	margin: 0 auto;
 
 }
 

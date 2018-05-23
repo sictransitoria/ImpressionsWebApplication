@@ -6,6 +6,7 @@
 	<body>
 
 		<h1>Welcome to Impressions.</h1>
+		<a href="/profile"><button>Profile</button></a>
 
 		<% for(let i in rows) { %>
 		
@@ -17,6 +18,8 @@
 		<p><%= rows[i].dataValues.comment %></p> 
 
 		<% } %>
+
+		<a href="/logout"><button>Logout</button></a>
 
 	</body>
 </html>
