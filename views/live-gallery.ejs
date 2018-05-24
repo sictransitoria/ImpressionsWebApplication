@@ -2,6 +2,7 @@
 	<html>
 	<head>
 		<title>Impressions | A Photo Sharing App</title>
+		<link rel="stylesheet" type="text/css" href="style.css">
 	</head>
 	<body>
 
@@ -9,13 +10,13 @@
 		<a href="/profile"><button>Profile</button></a>
 
 		<% for(let i in rows) { %>
-		
+
 	<div>
 		<img src="thumbnails/<%= rows[i].dataValues.image %>">
 	</div>
-	
+
 		<p><%= rows[i].dataValues.username %></p>
-		<p><%= rows[i].dataValues.comment %></p> 
+		<p><%= rows[i].dataValues.comment %></p>
 
 		<% } %>
 
