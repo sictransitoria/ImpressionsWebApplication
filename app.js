@@ -34,7 +34,6 @@ const sequelize = new Sequelize('mockinstagram', 'postgres', 'Runner4life!', {
 
 // Create a Table
 const Pic = sequelize.define('pic', {
-	username: Sequelize.STRING,
 	image: Sequelize.STRING,
 	comment: Sequelize.STRING
 })
@@ -74,7 +73,6 @@ app.post('/upload', (req, res) => {
 
 	})
   	Pic.create({
-  		username: req.body.username,
   		image: req.file.filename,
   		comment: req.body.comment
   	  })
