@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Profile</title>
+</head>
+<body>
+
+			<h1>Welcome to Impressions.</h1>
+
+    <form method="POST" action="/profile">
+          <% for(let i in rows) { %>
+      		<p><%= rows[i].dataValues.username %></p>
+          <% } %>
+      <button type="submit" class="btn btn-primary">Submit</button>
+      <a href="/live-gallery"><button>Feed</button></a>
+    </form>
+
+</body>
+</html>
