@@ -263,7 +263,7 @@ app.use(passport.session());
 app.get('/',
   function(req, res) {
     res.render('live-gallery', { user: req.user });
-  });
+});
 
 app.get('/register', (req, res)=>{
 	return res.render('register')
@@ -272,7 +272,7 @@ app.get('/register', (req, res)=>{
 app.get('/login',
   function(req, res){
     res.render('login');
-  });
+});
 
 app.post('/login', function(req,res,next){
 		passport.authenticate('local-login', function(err, user){
@@ -286,7 +286,7 @@ app.post('/login', function(req,res,next){
 				})
 			}
 		})(req, res, next);
-})
+});
 
 
 app.post('/signup', function(req,res, next){
@@ -303,12 +303,11 @@ app.post('/signup', function(req,res, next){
 app.get('/profile',
   require('connect-ensure-login').ensureLoggedIn(),
   function(req, res){
-    if(req.user.admin == 'yes') {
-      res.render('profile', { user: req.user })
-    } else {
-    console.log(err);
-   }
-  });
+  	console.log("****The req.user****" + req.user)
+  	User.findById(req.user.id).then((user)=>{
+     res.render('profile', { user: user.dataValues});
+    })
+  })
 
 app.get('/logout',
   function(req, res){
