@@ -111,7 +111,6 @@ const User = sequelize.define('user', {
 	email: Sequelize.STRING
 });
 
-
 const sessionStore = new SequelizeStore({
     db: sequelize
   });
@@ -121,8 +120,7 @@ sessionStore.sync();
 
 // -- Sessions -- 
 passport.serializeUser(function(user, done) {
-		console.log("*********SerializeUser*********")
-      //done(null, {id: user.id, user: user.username});
+		console.log("********* Serialize User *********")
       done(null, user)
 });
 // Convert ID in Cookie to User Details
@@ -143,7 +141,7 @@ passport.use('local-signup', new LocalStrategy({
     cellField: 'cell',
     emailField: 'email',
     passReqToCallback: true
-}, processSignupCallback));
+}, processSignupCallback)); 
 
 function processSignupCallback(req, username, password, done) {
     // first search to see if a user exists in our system with that email
@@ -217,6 +215,7 @@ function processLoginCallback(req, username, password, done) {
 
 //================ Passport Middleware ==============
 
+// Must be Initialized in order for Passport to work.
   app.use(passport.initialize());
   app.use(passport.session());
 
@@ -266,30 +265,39 @@ app.get('/',
     res.render('live-gallery', { user: req.user });
   });
 
+app.get('/register', (req, res)=>{
+	return res.render('register')
+});
+
 app.get('/login',
   function(req, res){
     res.render('login');
   });
 
-app.post('/login', 
-  passport.authenticate('local', { failureRedirect: '/login' }),
-  function(req, res) {
-    res.redirect('/');
-  });  
-
-app.get('/sign-up', (req, res)=>{
-	return res.render('sign-up')
+app.post('/login', function(req,res,next){
+		passport.authenticate('local-login', function(err, user){
+			console.log("Another login for user  :" + req.user)
+			if (err || user == false) {
+				return res.render('login', {message: "Incorrect Username/Password"})
+			} else {
+				req.login(user, function(err){
+					console.log("Getting req.user :"+ req.user)
+					return res.render('profile')
+				})
+			}
+		})(req, res, next);
 })
 
-app.post('/sign-up', function(req,res, next){
+
+app.post('/signup', function(req,res, next){
 	passport.authenticate('local-signup', function(err, user){
 		if (err) {
+			console.log(err)
 			return next(err);
 		} else {
 			return res.redirect('/login')
 		}
 	})(req, res, next);
-//	})
 });
 
 app.get('/profile',
