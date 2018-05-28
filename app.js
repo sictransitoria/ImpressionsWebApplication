@@ -156,7 +156,7 @@ function processSignupCallback(req, username, password, done) {
             return done(null, false);
         } else {
 
-// Create the New User
+// Create a New User
 			let newUser = req.body;
 			User.create(newUser)
 			.then((user) => {
@@ -303,7 +303,7 @@ app.post('/signup', function(req,res, next){
 app.get('/profile',
   require('connect-ensure-login').ensureLoggedIn(),
   function(req, res){
-  	console.log("****The req.user****" + req.user)
+  	console.log("**** The req.user ****" + req.user)
   	User.findById(req.user.id).then((user)=>{
      res.render('profile', { user: user.dataValues});
     })

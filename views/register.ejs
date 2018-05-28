@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <link rel="stylesheet" type="text/css" href="../style.css">
-	<title>Sign up!</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="../style.css">
+	   <title>Sign up!</title>
 </head>
 <body>
 
   	<h1 id="header-sign-up">Create an Account!</h1>
      
       <form method="POST" action="/signup">  
-          <fieldset>
-              <label>Last Name:  </label><input type="text" name="lastname">
-          </fieldset>
+           <div class="form-group">
+              <label for="lastname">Last Name:</label>
+                <input type="text" class="form-control" id="lastname" aria-describedby="lastnameHelp" placeholder="Enter Username">
+                <br/>
+            </div>
           <fieldset>
               <label>First Name:   </label><input type="text" name="firstname">
           </fieldset>
@@ -27,8 +30,6 @@
           <fieldset>
               <label>Email:   </label><input type="text" name="email">
           </fieldset>
-        <br>
-        <br>
           <button id="button" class="btn-submit">SUBMIT</button>
       </form>
 
