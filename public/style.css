@@ -6,9 +6,14 @@ body {
 
 }
 
-#container {
+.container {
 	width: 50%;
 	margin: 0 auto;
+
+}
+
+.container, fieldset {
+	border: none;
 
 }
 
@@ -23,6 +28,12 @@ body {
 }
 
 #header-upload {
+	font-size: 50px;
+	font-weight: 100;
+
+}
+
+#header-login {
 	font-size: 50px;
 	font-weight: 100;
 

@@ -5,9 +5,9 @@ var records = [
 
 exports.findById = function(id, cb) {
   process.nextTick(function() {
-    var idx = id - 1;
-    if (records[idx]) {
-      cb(null, records[idx]);
+    var index = id - 1;
+    if (records[index]) {
+      cb(null, records[index]);
     } else {
       cb(new Error('User ' + id + ' does not exist'));
     }

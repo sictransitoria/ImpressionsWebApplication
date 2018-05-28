@@ -1,26 +1,30 @@
 <!DOCTYPE html>
 	<html>
 	<head>
-		<title>Impressions | A Photo Sharing App</title>
+		<title>Impressions | A Photo Sharing Web App</title>
 		<link rel="stylesheet" type="text/css" href="style.css">
 	</head>
 	<body>
 
-		<h1>Welcome to Impressions.</h1>
-		<a href="/profile"><button>Profile</button></a>
+		<div class="container-live-gallery">
 
-		<% for(let i in rows) { %>
+			<h1>Welcome to Impressions.</h1>
 
-	<div>
-		<img src="thumbnails/<%= rows[i].dataValues.image %>">
-	</div>
+			<% for(let i in rows) { %>
 
-		<p><%= rows[i].dataValues.username %></p>
-		<p><%= rows[i].dataValues.comment %></p>
+		<div>
+			<img src="thumbnails/<%= rows[i].dataValues.image %>">
+		</div>
 
-		<% } %>
+			<p><%= rows[i].dataValues.username %></p>
+			<p><%= rows[i].dataValues.comment %></p>
 
-		<a href="/logout"><button>Logout</button></a>
+			<% } %>
+
+			<a href="/profile">Profile</a>
+			<a href="/logout">Log out</a>
+
+		</div>
 
 	</body>
 </html>

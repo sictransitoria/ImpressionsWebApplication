@@ -1,31 +1,33 @@
+// Node.js Variables
 const express = require('express');
 const ejs = require('ejs');
 const sharp = require('sharp');
 const bodyParser = require('body-parser');
 const path = require('path');
 const multer = require('multer');
-const fs = require('fs');
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy
-const Sequelize = require('sequelize');
-
-// just adding for test
-
-// const Sequelize = require('sequelize')
+const db = require('./db');
 const session = require('express-session')
 const cookieParser = require('cookie-parser')
+
+// Sequelize Variables
+const Sequelize = require('sequelize');
 const SequelizeStore = require('connect-session-sequelize')(session.Store)
 
-// Protect yourself
+// Passport Variables
+const LocalStrategy = require('passport-local').Strategy;
+const Strategy = require('passport-local').Strategy;
+const passport = require('passport');
+
+// Protect Yoself
 const dotenv = require('dotenv')
 require('dotenv').config()
 
-// Port 3000
+// Server Port
 const PORT = process.env.PORT || 3000;
 
+// Connect to 'mockinstagram' Database
 const Op = Sequelize.Op
-
-const sequelize = new Sequelize('mockinstagram', 'postgres', 'water', {
+const sequelize = new Sequelize('mockinstagram', 'postgres', 'Runner4life!', {
 	host: 'localhost',
 	post: '5432',
 	dialect: 'postgres',
@@ -35,17 +37,14 @@ const sequelize = new Sequelize('mockinstagram', 'postgres', 'water', {
 	  $eq: Op.eq,
 	  $like: Op.like,
 	  $ilike: Op.iLike
-
 	}
 })
 
-// Create a Table
+// Create a Table Named 'pic'
 const Pic = sequelize.define('pic', {
 	image: Sequelize.STRING,
 	comment: Sequelize.STRING
-})
-
-sequelize.sync()
+});
 
 // Storage Object Definition
 const storage = multer.diskStorage({
@@ -55,10 +54,11 @@ const storage = multer.diskStorage({
 	}
 })
 
+// Create a New Express Application.
+const app = express();
+
 // Upload Process Definition
 const upload = multer({storage: storage}).single('image')
-
-const app = express()
 
 app.set('view engine', 'ejs')
 app.use(bodyParser.json())
@@ -87,7 +87,7 @@ app.post('/upload', (req, res) => {
   	   	 return res.redirect('/') // Redirecting to / GET route
   	})
   })
-})
+});
 
 app.get('/', (req, res) => {
 
@@ -98,18 +98,19 @@ app.get('/', (req, res) => {
   	return res.render('live-gallery', {rows})
   })
 })
-// end of upload images
 
+// End of Images
 
-
-
-
-//beginning of showing pictures on profile
-
+// Create a table named 'Users'
 const User = sequelize.define('user', {
+	lastname: Sequelize.STRING,
+	firstname: Sequelize.STRING,
 	username: Sequelize.STRING,
-	password: Sequelize.STRING
-})
+	password: Sequelize.STRING,
+	cell: Sequelize.STRING,
+	email: Sequelize.STRING
+});
+
 
 const sessionStore = new SequelizeStore({
     db: sequelize
@@ -118,27 +119,31 @@ const sessionStore = new SequelizeStore({
 sequelize.sync()
 sessionStore.sync();
 
-//===============Sessions========================
-
+// -- Sessions -- 
 passport.serializeUser(function(user, done) {
 		console.log("*********SerializeUser*********")
       //done(null, {id: user.id, user: user.username});
       done(null, user)
 });
-//convert id in cookie to user details
+// Convert ID in Cookie to User Details
 	passport.deserializeUser(function(obj,done){
 		console.log("--deserializeUser--");
-		console.log(obj)
+		console.log(obj)	
 			done(null, obj);
-	})
+});
 
-//================Start Passport Local Config==================
-//Passport Sign-up
+// -- Start Passport Local Config --
+
+// Passport Sign-up
 passport.use('local-signup', new LocalStrategy({
+    lastnameField: 'lastname',
+    firstnameField: 'firstname',
     usernameField: 'username',
     passwordField: 'password',
+    cellField: 'cell',
+    emailField: 'email',
     passReqToCallback: true
-}, processSignupCallback));   // <<-- more on this to come
+}, processSignupCallback));
 
 function processSignupCallback(req, username, password, done) {
     // first search to see if a user exists in our system with that email
@@ -153,23 +158,20 @@ function processSignupCallback(req, username, password, done) {
             return done(null, false);
         } else {
 
-// create the new user
-			let newUser = req.body; // make this more secure
+// Create the New User
+			let newUser = req.body;
 			User.create(newUser)
-			.then((user)=>{
-			    //once user is created call done with the created user
-			   // createdRecord.password = undefined;
+			.then((user) => {
 			   console.log("Yay!!! User created")
-			   // console.log(user)
 			    return done(null, user);
 			})
-
-		}
+		}	 
 	})
 }
-//-------------End of Passport Sign-up-----------
 
-//-------------Start of Passport Login-----------
+//------------- End of Passport Sign-up -----------
+
+//------------- Start of Passport Login -----------
 
 	// Local Strategy
 passport.use('local-login', new LocalStrategy({
@@ -187,19 +189,17 @@ function processLoginCallback(req, username, password, done) {
     })
     .then((user)=> {
         if (!user) {
-            // user exists call done() passing null and false
             return done(null, false);
         }else if(password !== user.password){
 						return done(null, false)
 					}else{
-			   console.log("Yay!!! User is logged in")
+			   console.log("You've logged in.")
 			   // console.log(user)
 			    return done(null, user);
 			  }
 		})
 
-}
-
+}	 
 
   app.use(require('morgan')('combined'));
 	app.set('view engine', 'ejs')
@@ -208,83 +208,107 @@ function processLoginCallback(req, username, password, done) {
 	app.use(express.static('public'))
 	app.use(cookieParser());
 
-	app.use(session({
-		secret: 'keyboard cat',
+	app.use(session({ 
+		secret: 'keyboard cat', 
 		store: sessionStore,
-		resave: false,
-		saveUninitialized: false
+		resave: false, 
+		saveUninitialized: false 
 	}));
 
 //================ Passport Middleware ==============
-/*
-In an Express-based application, passport.initialize() middleware
-is required to initialize Passport. If your application uses persistent
-login sessions, passport.session() middleware must also be used.
-*/
-	app.use(passport.initialize());
+
+  app.use(passport.initialize());
   app.use(passport.session());
 
+//========= Routes ==================
 
+// Configure the Local Strategy for use by Passport.
+passport.use(new Strategy(
+  function(username, password, cb) {
+    db.users.findByUsername(username, function(err, user) {
+      if (err) { return cb(err); }
+      if (!user) { return cb(null, false); }
+      if (user.password != password) { return cb(null, false); }
+      return cb(null, user);
+    });
+  }));
 
-//=========Routes==================
-app.get('/', (req, res)=>{
-	if(req.user){
-	res.render('login', {user: req.user})
-	}else{
-		res.redirect('/sign-up')
-	}
-})
+// Configure Passport Authenticated Session Persistence.
+passport.serializeUser(function(user, cb) {
+  cb(null, user.id);
+});
+
+passport.deserializeUser(function(id, cb) {
+  db.users.findById(id, function (err, user) {
+    if (err) { return cb(err); }
+    cb(null, user);
+  });
+}); 
+
+// Configure View Engine to Render EJS.
+app.set('views', __dirname + '/views');
+app.set('view engine', 'ejs');
+
+// Use application-level middleware for common functionality, including
+// logging, parsing, and session handling.
+app.use(require('morgan')('combined'));
+app.use(require('cookie-parser')());
+app.use(require('body-parser').urlencoded({ extended: true }));
+app.use(require('express-session')({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
+
+// Initialize Passport and Restore Authentication State.
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Routes
+app.get('/',
+  function(req, res) {
+    res.render('live-gallery', { user: req.user });
+  });
+
+app.get('/login',
+  function(req, res){
+    res.render('login');
+  });
+
+app.post('/login', 
+  passport.authenticate('local', { failureRedirect: '/login' }),
+  function(req, res) {
+    res.redirect('/');
+  });  
 
 app.get('/sign-up', (req, res)=>{
-	return res.render('signin') // or sign-up
+	return res.render('sign-up')
 })
 
-app.post('/sign-up', function(req, res, next){
+app.post('/sign-up', function(req,res, next){
 	passport.authenticate('local-signup', function(err, user){
 		if (err) {
-			return next(err)
+			return next(err);
 		} else {
-			return res.redirect('/login') // or login
+			return res.redirect('/login')
 		}
 	})(req, res, next);
 //	})
 });
 
-app.post('/login', function(req, res, next){
-		passport.authenticate('local-login', function(err, user){
-			console.log("Another login for user  :" + req.user)
-			if (err || user == false) {
-				return res.render('login', {message: "Incorrect Username/Password"})
-			} else {
-				req.login(user, function(err){
-					console.log("Getting req.user :"+ req.user)
-					return res.render('profile', {user: req.user}) // sent to the feed
-				})
-			}
-		})(req, res, next);
-})
-
-
-app.get('/login', (req, res)=>{
-	return res.render('login', {message: "Please login"})
-})
-
 app.get('/profile',
   require('connect-ensure-login').ensureLoggedIn(),
   function(req, res){
-  	console.log("****The req.user****" + req.user)
-  	User.findById(req.user.id).then((user)=>{
-     res.render('profile', { user: user.dataValues});
-    })
-  })
+    if(req.user.admin == 'yes') {
+      res.render('profile', { user: req.user })
+    } else {
+    console.log(err);
+   }
+  });
 
-app.get('/logout',function(req, res){
-  	console.log("*****Loging out*****")
-  	req.session.destroy()
-    req.logout();
-    res.redirect('/login');
-  })
+app.get('/logout',
+  function(req, res){
+    res.render('logout', { user: req.user });
+  });
 
+
+// Loud and Clear on Port 3000
 app.listen(PORT, ()=>{
-	console.log(`..Server Started for Impressions..`)
+	console.log("...Server Started on Port 3000...")
 })
