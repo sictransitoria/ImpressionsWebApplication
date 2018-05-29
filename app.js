@@ -314,6 +314,27 @@ app.get('/logout',
     res.render('logout', { user: req.user });
   });
 
+// Edit a Record
+app.post('/edit/:id', (req, res) => {
+	let id = req.params.id
+	Pic.findById(id)
+	.then(row => {
+		return row;
+	})
+	.then(row => {
+		return res.render('upload', {row});
+	})
+})
+
+// Delete a Photo
+app.post('/delete/:id', (req, res) => {
+	let id = req.params.id
+	Pic.findById(id)
+	.then(row => row.destroy(row))
+	.then(() => {
+		return res.redirect('/');
+	})
+});
 
 // Loud and Clear on Port 3000
 app.listen(PORT, ()=>{

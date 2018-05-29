@@ -19,8 +19,12 @@
 					<p><%= rows[i].dataValues.username %></p>
 					<p><%= rows[i].dataValues.comment %></p>
 				<div class="card-body">
-	    			<a href="#" class="card-link">Edit</a>
-	    			<a href="#" class="card-link">Delete</a>
+					<form method="POST" action="/edit/<%= rows[i].dataValues.id %>">
+						<button class="card-link">EDIT</button>
+					</form>
+					<form method="POST" action="/delete/<%= rows[i].dataValues.id %>">
+						<button class="card-link">DELETE</button>
+					</form>	    			
 	  			</div>
 	  			</div>
 			</div>
@@ -30,8 +34,8 @@
 				<% } %>
 
 				<div class="center-button">
-					<a href="/profile"><button id="button" class="btn-submit">Profile</button></a>
-					<a href="/logout"><button id="button" class="btn-submit">Log Out</button></a>
+					<a href="/profile"><button id="button" class="btn-submit">PROFILE</button></a>
+					<a href="/logout"><button id="button" class="btn-submit">LOG OUT</button></a>
 				</div>	
 		</div>
 
