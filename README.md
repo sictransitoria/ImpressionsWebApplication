@@ -7,7 +7,7 @@ Develop an application that resembles Instagram. The application should have a b
 
 <h1>Web Dev Tools</h1>
 
-Your team should use the following web development tools to develop the app.
+We used the following web development tools to develop the app.
 
 <ul>
 
