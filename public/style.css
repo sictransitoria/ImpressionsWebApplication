@@ -6,15 +6,26 @@ body {
 
 }
 
-.container {
+.container-upload {
 	width: 50%;
 	margin: 0 auto;
 
 }
 
-.container-upload {
+.container-profile {
 	width: 50%;
 	margin: 0 auto;
+
+}
+
+.container-register {
+	width: 40%;
+	margin: 0 auto;
+
+}
+
+.container-logout {
+	margin: 350px 0px 0px 200px auto;
 
 }
 
@@ -50,7 +61,7 @@ body {
 }
 
 .header {
-	font-size: 50px;
+	font-size: 60px;
 	font-weight: 100;
 
 }
@@ -59,6 +70,13 @@ body {
 	font-size: 50px;
 	font-weight: 100;
 	margin: 0px 0px 0px 40px;
+
+}
+
+#header-register {
+	font-size: 35px;
+	font-weight: 100;
+	text-align: left;
 
 }
 
@@ -78,8 +96,19 @@ textarea {
     font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;
+    transition: .3s;
+
 }
 
+.center-button {
+	margin: 40px 0px 30px 89px;
+
+}
+
+.center-button button {
+	padding: 40px;
+
+}
 #button:hover {
 	transition: 1s;
 	background-color: #00aaff;

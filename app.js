@@ -160,7 +160,7 @@ function processSignupCallback(req, username, password, done) {
 			let newUser = req.body;
 			User.create(newUser)
 			.then((user) => {
-			   console.log("Yay!!! User created")
+			   alert("Yay!!! User created")
 			    return done(null, user);
 			})
 		}	 
@@ -191,8 +191,7 @@ function processLoginCallback(req, username, password, done) {
         }else if(password !== user.password){
 						return done(null, false)
 					}else{
-			   console.log("You've logged in.")
-			   // console.log(user)
+			   console.log("You've logged in.");
 			    return done(null, user);
 			  }
 		})
@@ -322,7 +321,7 @@ app.post('/edit/:id', (req, res) => {
 		return row;
 	})
 	.then(row => {
-		return res.render('upload', {row});
+		return res.render('upload.html', {row});
 	})
 })
 

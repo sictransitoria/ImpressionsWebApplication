@@ -20,22 +20,21 @@
 					<p><%= rows[i].dataValues.comment %></p>
 				<div class="card-body">
 					<form method="POST" action="/edit/<%= rows[i].dataValues.id %>">
-						<button class="card-link">EDIT</button>
+						<button id="button" class="btn btn-submit">EDIT</button>
 					</form>
 					<form method="POST" action="/delete/<%= rows[i].dataValues.id %>">
-						<button class="card-link">DELETE</button>
+						<button id="button" class="btn btn-submit">DELETE</button>
 					</form>	    			
 	  			</div>
 	  			</div>
 			</div>
-				
-
 
 				<% } %>
 
 				<div class="center-button">
-					<a href="/profile"><button id="button" class="btn-submit">PROFILE</button></a>
-					<a href="/logout"><button id="button" class="btn-submit">LOG OUT</button></a>
+					<a href="/upload.html"><button id="button" class="btn btn-submit">UPLOAD</button></a>
+					<a href="/profile"><button id="button" class="btn btn-submit">PROFILE</button></a>
+					<a href="/logout"><button id="button" class="btn btn-submit">LOG OUT</button></a>
 				</div>	
 		</div>
 
