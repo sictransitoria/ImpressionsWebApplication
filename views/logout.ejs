@@ -5,13 +5,14 @@
 	<link rel="stylesheet" type="text/css" href="../style.css">
 	<title>The End.</title>
 </head>
-<body>
+	<body>
 
 
-	<div class="container-logout">
-		<h1 class="header">You have successfully logged out, <%= user.username %></h1>
-		<a href="/login"><button id="button" class="btn btn-submit">LOG BACK IN!</button></a>
-	</div>
-
-</body>
+		<div class="container">
+			<div id="container-logout">
+				<h1 class="header">You have successfully logged out, <%= user.username %></h1>
+				<a href="/login"><button id="button" class="btn btn-submit">LOG BACK IN!</button></a>
+			</div>
+		</div>
+	</body>
 </html>

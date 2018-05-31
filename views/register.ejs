@@ -6,35 +6,34 @@
 	   <title>Sign up!</title>
 </head>
 <body>
-    <div class="container-register">
+   <div class="container">
     	<h1 id="header-register">Create an Account!</h1>
-        <form method="POST" action="/signup">  
-             <div class="form-group">
-                <label for="lastname">Last Name:   </label>
-                  <input type="text" class="form-control" id="lastname" aria-describedby="lastnameHelp" placeholder="Enter Your Last Name.">
-              </div>
-            <div class="form-group">
-                <label for="firstname">First Name:   </label>
-                  <input type="text" class="form-control" id="lastname" aria-describedby="firstnameHelp" placeholder="Enter your First Name.">
-              </div>
-            <div class="form-group">
-                <label for="username">Username:   </label>
-                  <input type="text" class="form-control" id="username" aria-describedby="usernameHelp" placeholder="Enter a Username.">
-            </div>
-            <div class="form-group">
-                <label for="password">Password:   </label>
-                  <input type="password" class="form-control" id="password" aria-describedby="passwordHelp" placeholder="Enter a Password.">
-              </div>
-               <div class="form-group">
-                <label for="cell">Cell:  </label>
-                  <input type="text" class="form-control" id="cell" aria-describedby="cellHelp" placeholder="Enter Your Cell.">
-              </div>
-            <div class="form-group">
-                <label for="email">Last Name:</label>
-                  <input type="text" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter Your Email.">
-            </div>
-            <button id="button" class="btn btn-submit">SUBMIT</button>
-        </form>
+      <form method="POST" action="/signup">
+      <div class="form-group">
+          <label for="lastname">Last Name:  </label>
+          <input type="text" class="form-control" name="lastname" placeholder="Enter Your Last Name.">
       </div>
+      <div class="form-group">
+          <label for="firstname">First Name:  </label>
+          <input type="text" class="form-control" name="firstname" placeholder="Enter Your First Name.">
+      </div>
+      <div class="form-group">
+          <label for="lastname">Username:  </label>
+          <input type="text" class="form-control" name="username" placeholder="Enter a User Name.">
+      </div>
+      <div class="form-group">
+          <label for="lastname">Password:  </label>
+          <input type="password" class="form-control" name="password" placeholder="Enter a Password.">
+      </div>
+      <div class="form-group">
+          <label for="cell">Username:  </label>
+          <input type="text" class="form-control" name="cell" placeholder="Enter Your Cell #">
+      </div>
+      <div class="form-group">
+          <label for="email">Username:  </label>
+          <input type="text" class="form-control" name="email" placeholder="Enter Your Email.">
+      </div>
+      <button id="button" class="btn btn-submit">SUBMIT</button>
+    </form>
 </body>
 </html>

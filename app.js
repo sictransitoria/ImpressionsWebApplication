@@ -6,8 +6,21 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const multer = require('multer');
 const db = require('./db');
-const session = require('express-session')
-const cookieParser = require('cookie-parser')
+const session = require('express-session');
+const cookieParser = require('cookie-parser');
+
+// Protect Yoself
+const dotenv = require('dotenv');
+require('dotenv').config();
+dotenv.load();
+
+// DOTENV Variables
+const DB_DATAB = process.env.DB_DATAB
+const DB_USER = process.env.DB_USER;
+const DB_PASS = process.env.DB_PASS;
+const DB_HOST = process.env.DB_HOST;
+const DB_POST = process.env.DB_POST;
+const DB_DIAL = process.env.DB_DIAL
 
 // Sequelize Variables
 const Sequelize = require('sequelize');
@@ -18,19 +31,15 @@ const LocalStrategy = require('passport-local').Strategy;
 const Strategy = require('passport-local').Strategy;
 const passport = require('passport');
 
-// Protect Yoself
-const dotenv = require('dotenv')
-require('dotenv').config()
-
 // Server Port
 const PORT = process.env.PORT || 3000;
 
-// Connect to 'mockinstagram' Database
+// Connect to Database
 const Op = Sequelize.Op
-const sequelize = new Sequelize('mockinstagram', 'postgres', 'Runner4life!', {
-	host: 'localhost',
-	post: '5432',
-	dialect: 'postgres',
+const sequelize = new Sequelize(DB_DATAB, DB_USER, DB_PASS, {
+	host: DB_HOST,
+	post: DB_POST,
+	dialect: DB_DIAL,
 	operatorsAliases: {
 	  $and: Op.and,
 	  $or: Op.or,
@@ -40,7 +49,7 @@ const sequelize = new Sequelize('mockinstagram', 'postgres', 'Runner4life!', {
 	}
 })
 
-// Create a Table Named 'pic'
+// Create a Table
 const Pic = sequelize.define('pic', {
 	image: Sequelize.STRING,
 	comment: Sequelize.STRING
@@ -123,6 +132,7 @@ passport.serializeUser(function(user, done) {
 		console.log("********* Serialize User *********")
       done(null, user)
 });
+
 // Convert ID in Cookie to User Details
 	passport.deserializeUser(function(obj,done){
 		console.log("--deserializeUser--");
@@ -130,7 +140,7 @@ passport.serializeUser(function(user, done) {
 			done(null, obj);
 });
 
-// -- Start Passport Local Config --
+// * Start Passport Local Config *
 
 // Passport Sign-up
 passport.use('local-signup', new LocalStrategy({
@@ -141,7 +151,7 @@ passport.use('local-signup', new LocalStrategy({
     cellField: 'cell',
     emailField: 'email',
     passReqToCallback: true
-}, processSignupCallback)); 
+}, processSignupCallback));
 
 function processSignupCallback(req, username, password, done) {
     // first search to see if a user exists in our system with that email
@@ -159,19 +169,20 @@ function processSignupCallback(req, username, password, done) {
 // Create a New User
 			let newUser = req.body;
 			User.create(newUser)
-			.then((user) => {
-			   alert("Yay!!! User created")
+			.then((user)=>{
+			   console.log("Yay!!! User created")
 			    return done(null, user);
 			})
+
 		}	 
 	})
 }
 
-//------------- End of Passport Sign-up -----------
+// * End of Passport Sign-up *
 
-//------------- Start of Passport Login -----------
+// * Start of Passport Login *
 
-	// Local Strategy
+// Local Strategy
 passport.use('local-login', new LocalStrategy({
     usernameField: 'username',
     passwordField: 'password',
@@ -188,9 +199,9 @@ function processLoginCallback(req, username, password, done) {
     .then((user)=> {
         if (!user) {
             return done(null, false);
-        }else if(password !== user.password){
+        } else if (password !== user.password){
 						return done(null, false)
-					}else{
+					} else {
 			   console.log("You've logged in.");
 			    return done(null, user);
 			  }
@@ -212,13 +223,13 @@ function processLoginCallback(req, username, password, done) {
 		saveUninitialized: false 
 	}));
 
-//================ Passport Middleware ==============
+// * Passport Middleware *
 
 // Must be Initialized in order for Passport to work.
   app.use(passport.initialize());
   app.use(passport.session());
 
-//========= Routes ==================
+// * Routes *
 
 // Configure the Local Strategy for use by Passport.
 passport.use(new Strategy(
@@ -247,16 +258,12 @@ passport.deserializeUser(function(id, cb) {
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
-// Use application-level middleware for common functionality, including
-// logging, parsing, and session handling.
+
+// Logging, Parsing, and Session Handling.
 app.use(require('morgan')('combined'));
 app.use(require('cookie-parser')());
 app.use(require('body-parser').urlencoded({ extended: true }));
 app.use(require('express-session')({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
-
-// Initialize Passport and Restore Authentication State.
-app.use(passport.initialize());
-app.use(passport.session());
 
 // Routes
 app.get('/',
@@ -265,7 +272,7 @@ app.get('/',
 });
 
 app.get('/register', (req, res)=>{
-	return res.render('register')
+	return res.render('register');
 });
 
 app.get('/login',
@@ -281,7 +288,7 @@ app.post('/login', function(req,res,next){
 			} else {
 				req.login(user, function(err){
 					console.log("Getting req.user :"+ req.user)
-					return res.render('profile')
+					return res.render('profile', {user: req.user})
 				})
 			}
 		})(req, res, next);
@@ -291,7 +298,6 @@ app.post('/login', function(req,res,next){
 app.post('/signup', function(req,res, next){
 	passport.authenticate('local-signup', function(err, user){
 		if (err) {
-			console.log(err)
 			return next(err);
 		} else {
 			return res.redirect('/login')
@@ -321,7 +327,7 @@ app.post('/edit/:id', (req, res) => {
 		return row;
 	})
 	.then(row => {
-		return res.render('upload.html', {row});
+		return res.render('upload.html');
 	})
 })
 
@@ -338,4 +344,6 @@ app.post('/delete/:id', (req, res) => {
 // Loud and Clear on Port 3000
 app.listen(PORT, ()=>{
 	console.log("...Server Started on Port 3000...")
-})
+});
+
+// TAK

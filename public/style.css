@@ -6,26 +6,34 @@ body {
 
 }
 
-.container-upload {
+.container {
 	width: 50%;
 	margin: 0 auto;
 
 }
 
-.container-profile {
-	width: 50%;
-	margin: 0 auto;
+#container-live {
+	margin: 40px 75px 10px 40px;
 
 }
 
-.container-register {
-	width: 40%;
-	margin: 0 auto;
+#container-upload {
+	margin-top: 17em auto;
 
 }
 
-.container-logout {
-	margin: 350px 0px 0px 200px auto;
+#container-profile {
+	margin-top: 17em auto;
+
+}
+
+#container-login {
+	margin-top: 16em auto;
+
+}
+
+#container-logout {
+	margin-top: 16em auto;
 
 }
 
@@ -69,7 +77,7 @@ body {
 #header-live-gallery {
 	font-size: 50px;
 	font-weight: 100;
-	margin: 0px 0px 0px 40px;
+	text-align: center;
 
 }
 
