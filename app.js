@@ -127,7 +127,7 @@ const sessionStore = new SequelizeStore({
 sequelize.sync()
 sessionStore.sync();
 
-// -- Sessions -- 
+// -- Sessions --
 passport.serializeUser(function(user, done) {
 		console.log("********* Serialize User *********")
       done(null, user)
@@ -136,7 +136,7 @@ passport.serializeUser(function(user, done) {
 // Convert ID in Cookie to User Details
 	passport.deserializeUser(function(obj,done){
 		console.log("--deserializeUser--");
-		console.log(obj)	
+		console.log(obj)
 			done(null, obj);
 });
 
@@ -174,7 +174,7 @@ function processSignupCallback(req, username, password, done) {
 			    return done(null, user);
 			})
 
-		}	 
+		}
 	})
 }
 
@@ -207,7 +207,7 @@ function processLoginCallback(req, username, password, done) {
 			  }
 		})
 
-}	 
+}
 
   app.use(require('morgan')('combined'));
 	app.set('view engine', 'ejs')
@@ -216,11 +216,11 @@ function processLoginCallback(req, username, password, done) {
 	app.use(express.static('public'))
 	app.use(cookieParser());
 
-	app.use(session({ 
-		secret: 'keyboard cat', 
+	app.use(session({
+		secret: 'keyboard cat',
 		store: sessionStore,
-		resave: false, 
-		saveUninitialized: false 
+		resave: false,
+		saveUninitialized: false
 	}));
 
 // * Passport Middleware *
@@ -252,7 +252,7 @@ passport.deserializeUser(function(id, cb) {
     if (err) { return cb(err); }
     cb(null, user);
   });
-}); 
+});
 
 // Configure View Engine to Render EJS.
 app.set('views', __dirname + '/views');
@@ -320,7 +320,7 @@ app.get('/logout',
   });
 
 // Edit a Record
-app.post('/edit/:id', (req, res) => {
+app.post('/edit/Pic/:id', (req, res) => {// I adding /Pic
 	let id = req.params.id
 	Pic.findById(id)
 	.then(row => {
