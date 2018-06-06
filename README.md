@@ -1,9 +1,8 @@
 <h1> Impressions | A Photo Sharing Web Application </h1>
 
-Most hiring managers we have interviewed told us they expect their Junior Web Developers to work well in teams and show the ability to complete a project from start to finish. 
-This project is a great way to show potential employers that you can do both.
+Most hiring managers expect their Junior Web Developers to work well in teams and show the ability to complete a project from start to finish. This project is a great way to show potential employers that we can do both.
 
-Develop an application that resembles Instagram. The application should have a basic file upload feature and user authentication.
+Impressions is an application that resembles Instagram. Impressions has a basic file upload feature and user authentication.
 
 <h1>Web Dev Tools</h1>
 
