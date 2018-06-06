@@ -353,7 +353,7 @@ app.post('/upload/:id', (req, res) => {
   	   return res.redirect('/');
   	})
   })
-})
+});
 
 // Delete a Photo
 app.post('/delete/:id', (req, res) => {
