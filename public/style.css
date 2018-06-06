@@ -19,6 +19,7 @@ body {
 
 #container-upload {
 	margin-top: 17em auto;
+	display: inline-block;
 
 }
 
@@ -58,7 +59,7 @@ body {
 }
 
 #filefile {
-	width: 42%;
+	width: 50%;
 
 }
 

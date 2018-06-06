@@ -59,26 +59,26 @@ const Pic = sequelize.define('pic', {
 const storage = multer.diskStorage({
 	destination: './public/uploads',
 	filename: (req, file, cb) => {
-		cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname)) //in a form
+		cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
 	}
-})
+});
 
 // Create a New Express Application.
 const app = express();
-
-// Upload Process Definition
-const upload = multer({storage: storage}).single('image');
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static('public'));
 
+// Upload Process Definition
+const upload = multer({storage: storage}).single('image');
+
 // Upload Photo to live-gallery.ejs & \\public\thumbnails
 app.post('/upload', (req, res) => {
 	upload(req, res, (err) => {
 		if (err){
-			console.log(err)
+		console.log(err)
 	}
 	console.log(req.body)
 	console.log(req.file)
@@ -94,7 +94,7 @@ app.post('/upload', (req, res) => {
   		comment: req.body.comment
   	  })
   	   .then(() => {
-  	   	 return res.redirect('/') // Redirecting to / GET route
+  	   	 return res.redirect('/')
   	})
   })
 });
@@ -329,11 +329,11 @@ app.get('/edit/:id', (req, res) => {
 app.post('/upload/:id', (req, res) => {
 	console.log(req.body.image);
 	upload(req, res, (err) => {
-	  if (err){
+	  if (err) {
 	  console.log(err)
 	}
 	  console.log("File for Sharp" + req.file.path)
-	sharp(req.file.path)
+	 sharp(req.file.path)
 	.resize(400, 400)
 	.toFile('public/thumbnails/' + req.file.filename, function(err) {
 
@@ -367,7 +367,7 @@ app.post('/delete/:id', (req, res) => {
 
 // Loud and Clear on Port 3000
 app.listen(PORT, ()=>{
-	console.log("...Server Started on: PORT...")
+	console.log('Express listening on port:', PORT)
 });
 
 // TAK
