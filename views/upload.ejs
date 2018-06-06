@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+	<html>
+	<head>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+		<link rel="stylesheet" type="text/css" href="../style.css">
+		<title>Upload Form</title>
+	</head>
+	<body>
+
+		<div class="container">
+			<div id="container-upload">
+			<h1 id=header-upload>Upload</strong> to Impressions.</h1>
+				<div class="form-group-row">
+					<form method="POST" action="/upload/<%= id %>" enctype="multipart/form-data">
+						<div class="form-group">
+							<input type="file" id="filefile" name="image" class="form-control">
+						</div>
+						<div class="form-group">
+      						<label for="comment">Add a Comment. </label>
+      						<textarea type="text" rows="3" class="form-control" id="comment_text" name="comment"></textarea>
+    					</div>
+							<button id="button" class="btn btn-submit">SUBMIT</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

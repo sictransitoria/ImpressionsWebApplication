@@ -19,7 +19,7 @@
 							<p><%= rows[i].dataValues.username %></p>
 							<p><%= rows[i].dataValues.comment %></p>
 						<div class="card-body">
-							<form method="POST" action="/edit/<%= rows[i].dataValues.id %>">
+							<form method="GET" action="/edit/<%= rows[i].dataValues.id %>">
 								<button id="button" class="btn btn-submit">EDIT</button>
 							</form>
 							<form method="POST" action="/delete/<%= rows[i].dataValues.id %>">

@@ -20,7 +20,7 @@ const DB_USER = process.env.DB_USER;
 const DB_PASS = process.env.DB_PASS;
 const DB_HOST = process.env.DB_HOST;
 const DB_POST = process.env.DB_POST;
-const DB_DIAL = process.env.DB_DIAL
+const DB_DIAL = process.env.DB_DIAL;
 
 // Sequelize Variables
 const Sequelize = require('sequelize');
@@ -47,7 +47,7 @@ const sequelize = new Sequelize(DB_DATAB, DB_USER, DB_PASS, {
 	  $like: Op.like,
 	  $ilike: Op.iLike
 	}
-})
+});
 
 // Create a Table
 const Pic = sequelize.define('pic', {
@@ -67,14 +67,14 @@ const storage = multer.diskStorage({
 const app = express();
 
 // Upload Process Definition
-const upload = multer({storage: storage}).single('image')
+const upload = multer({storage: storage}).single('image');
 
-app.set('view engine', 'ejs')
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended: false}))
-app.use(express.static('public'))
+app.set('view engine', 'ejs');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(express.static('public'));
 
-// Upload Photo to feed.ejs & \\public\thumbnails
+// Upload Photo to live-gallery.ejs & \\public\thumbnails
 app.post('/upload', (req, res) => {
 	upload(req, res, (err) => {
 		if (err){
@@ -89,6 +89,7 @@ app.post('/upload', (req, res) => {
 
 	})
   	Pic.create({
+  		id: req.body.id,
   		image: req.file.filename,
   		comment: req.body.comment
   	  })
@@ -97,16 +98,6 @@ app.post('/upload', (req, res) => {
   	})
   })
 });
-
-app.get('/', (req, res) => {
-
-  Pic.findAll().then((rows) => {
-  	return rows
-  })
-  .then((rows) => {
-  	return res.render('live-gallery', {rows})
-  })
-})
 
 // End of Images
 
@@ -229,8 +220,6 @@ function processLoginCallback(req, username, password, done) {
   app.use(passport.initialize());
   app.use(passport.session());
 
-// * Routes *
-
 // Configure the Local Strategy for use by Passport.
 passport.use(new Strategy(
   function(username, password, cb) {
@@ -266,10 +255,15 @@ app.use(require('body-parser').urlencoded({ extended: true }));
 app.use(require('express-session')({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
 
 // Routes
-app.get('/',
-  function(req, res) {
-    res.render('live-gallery', { user: req.user });
-});
+
+app.get('/', (req, res) => {
+  Pic.findAll().then((rows) => {
+  	return rows
+  })
+  .then((rows) => {
+  	return res.render('live-gallery', {rows})
+  })
+})
 
 app.get('/register', (req, res)=>{
 	return res.render('register');
@@ -320,15 +314,45 @@ app.get('/logout',
   });
 
 // Edit a Record
-app.post('/edit/:id', (req, res) => {
+app.get('/edit/:id', (req, res) => {
 	let id = req.params.id
 	Pic.findById(id)
 	.then(row => {
 		return row;
 	})
 	.then(row => {
-		return res.render('upload.html');
+		return res.render('upload', {id});
 	})
+})
+
+// Update a Phot after clicking 'Edit'
+app.post('/upload/:id', (req, res) => {
+	console.log(req.body.image);
+	upload(req, res, (err) => {
+	  if (err){
+	  console.log(err)
+	}
+	  console.log("File for Sharp" + req.file.path)
+	sharp(req.file.path)
+	.resize(400, 400)
+	.toFile('public/thumbnails/' + req.file.filename, function(err) {
+
+	})
+	Pic.findOne({
+		where: {
+			id: req.params.id
+		}
+	})
+  	.then((row) => {
+  		row.update({
+  			image: req.file.filename,
+  			comment: req.body.comment
+  		})
+  	})
+  	   .then((row) => {
+  	   return res.redirect('/');
+  	})
+  })
 })
 
 // Delete a Photo
@@ -343,7 +367,7 @@ app.post('/delete/:id', (req, res) => {
 
 // Loud and Clear on Port 3000
 app.listen(PORT, ()=>{
-	console.log("...Server Started on Port 3000...")
+	console.log("...Server Started on: PORT...")
 });
 
 // TAK
