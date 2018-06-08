@@ -2,7 +2,7 @@ body {
 	font-family: Avenir Next, sans-serif;
 	background-color: #f2f2f2;
 	color: #000000;
-	margin: 50px 0px 0px 10px;
+	margin-top: 60px;
 
 }
 
@@ -19,7 +19,6 @@ body {
 
 #container-upload {
 	margin-top: 17em auto;
-	display: inline-block;
 
 }
 
