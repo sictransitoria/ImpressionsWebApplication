@@ -31,8 +31,8 @@ const LocalStrategy = require('passport-local').Strategy;
 const Strategy = require('passport-local').Strategy;
 const passport = require('passport');
 
-// // Server Port
-// const PORT = process.env.PORT || 3000;
+// Server Port
+const PORT = process.env.PORT || 3000;
 
 // Connect to Database
 const Op = Sequelize.Op
