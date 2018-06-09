@@ -15,12 +15,12 @@ require('dotenv').config();
 dotenv.load();
 
 // Enviornment Variables
-const DB_DATAB = process.env.DB_DATAB
-const DB_USER = process.env.DB_USER;
-const DB_PASS = process.env.DB_PASS;
-// const DB_HOST = process.env.DB_HOST;
-const DB_POST = process.env.DB_POST;
-const DB_DIAL = process.env.DB_DIAL;
+// const DB_DATAB = process.env.DB_DATAB
+// const DB_USER = process.env.DB_USER;
+// const DB_PASS = process.env.DB_PASS;
+// // const DB_HOST = process.env.DB_HOST;
+// const DB_POST = process.env.DB_POST;
+// const DB_DIAL = process.env.DB_DIAL;
 
 // Sequelize Variables
 const Sequelize = require('sequelize');
@@ -70,7 +70,7 @@ const app = express();
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({extended: true }));
 app.use(express.static('public'));
 
 // Upload Process Definition
