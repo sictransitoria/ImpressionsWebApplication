@@ -18,13 +18,13 @@ dotenv.load();
 const DB_DATAB = process.env.DB_DATAB
 const DB_USER = process.env.DB_USER;
 const DB_PASS = process.env.DB_PASS;
-const DB_HOST = process.env.DB_HOST;
+// const DB_HOST = process.env.DB_HOST;
 const DB_POST = process.env.DB_POST;
 const DB_DIAL = process.env.DB_DIAL;
 
 // Sequelize Variables
 const Sequelize = require('sequelize');
-const SequelizeStore = require('connect-session-sequelize')(session.Store)
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 // Passport Variables
 const LocalStrategy = require('passport-local').Strategy;
@@ -37,7 +37,7 @@ const PORT = process.env.PORT || 3000;
 // Connect to Database
 const Op = Sequelize.Op
 const sequelize = new Sequelize(DB_DATAB, DB_USER, DB_PASS, {
-	host: DB_HOST,
+	// host: '',
 	post: DB_POST,
 	dialect: 'postgres',
 	operatorsAliases: {
