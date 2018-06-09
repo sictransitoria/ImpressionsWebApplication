@@ -39,7 +39,7 @@ const Op = Sequelize.Op
 const sequelize = new Sequelize(DB_DATAB, DB_USER, DB_PASS, {
 	host: DB_HOST,
 	post: DB_POST,
-	dialect: DB_DIAL,
+	dialect: 'postgres',
 	operatorsAliases: {
 	  $and: Op.and,
 	  $or: Op.or,
