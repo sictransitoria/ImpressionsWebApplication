@@ -200,7 +200,7 @@ function processLoginCallback(req, username, password, done) {
 
 }	 
 
-  app.use(require('morgan')('combined'));
+  // app.use(require('morgan')('combined'));
 	app.set('view engine', 'ejs')
 	app.use(bodyParser.json())
 	app.use(bodyParser.urlencoded({ extended: true }));
