@@ -39,7 +39,7 @@ const Op = Sequelize.Op
 const sequelize = new Sequelize(DB_DATAB, DB_USER, DB_PASS, {
 	// host: '',
 	// port: DB_POST,
-	protocol: 'postgres'
+	protocol: 'postgres',
 	ssl: true,
 	dialect: 'postgres',
 	operatorsAliases: {
