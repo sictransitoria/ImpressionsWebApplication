@@ -19,7 +19,7 @@ const DB_DATAB = process.env.DB_DATAB
 const DB_USER = process.env.DB_USER;
 const DB_PASS = process.env.DB_PASS;
 const DB_HOST = process.env.DB_HOST;
-const DB_POST = process.env.DB_POST;
+const DB_PORT = process.env.DB_POST;
 const DB_DIAL = process.env.DB_DIAL;
 
 // Sequelize Variables
@@ -38,7 +38,7 @@ const PORT = process.env.PORT || 3000;
 const Op = Sequelize.Op
 const sequelize = new Sequelize(DB_DATAB, DB_USER, DB_PASS, {
 	host: DB_HOST,
-	post: DB_POST,
+	port: DB_PORT,
 	dialect: 'postgres',
 	operatorsAliases: {
 	  $and: Op.and,

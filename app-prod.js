@@ -31,14 +31,16 @@ const LocalStrategy = require('passport-local').Strategy;
 const Strategy = require('passport-local').Strategy;
 const passport = require('passport');
 
-// Server Port
-const PORT = process.env.PORT || 3000;
+// // Server Port
+// const PORT = process.env.PORT || 3000;
 
 // Connect to Database
 const Op = Sequelize.Op
 const sequelize = new Sequelize(DB_DATAB, DB_USER, DB_PASS, {
 	// host: '',
-	post: DB_POST,
+	// port: DB_POST,
+	protocol: 'postgres'
+	ssl: true,
 	dialect: 'postgres',
 	operatorsAliases: {
 	  $and: Op.and,
