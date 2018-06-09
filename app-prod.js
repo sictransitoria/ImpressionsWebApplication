@@ -249,7 +249,7 @@ app.set('view engine', 'ejs');
 
 
 // Logging, Parsing, and Session Handling.
-app.use(require('morgan')('combined'));
+// app.use(require('morgan')('combined'));
 app.use(require('cookie-parser')());
 app.use(require('body-parser').urlencoded({ extended: true }));
 app.use(require('express-session')({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
