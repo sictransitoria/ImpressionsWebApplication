@@ -36,7 +36,7 @@ const PORT = process.env.PORT || 3000;
 
 // Connect to Database
 const Op = Sequelize.Op
-const sequelize = new Sequelize(DB_DATAB, DB_USER, DB_PASS, {
+const sequelize = new Sequelize(DB_DATAB, {
 	// host: '',
 	// port: DB_POST,
 	protocol: 'postgres',
