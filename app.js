@@ -66,6 +66,7 @@ const storage = multer.diskStorage({
 // Create a New Express Application.
 const app = express();
 
+// Configure View Engine to Render EJS
 app.set('view engine', 'ejs');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
@@ -243,17 +244,6 @@ passport.deserializeUser(function(id, cb) {
   });
 }); 
 
-// Configure View Engine to Render EJS.
-app.set('views', __dirname + '/views');
-app.set('view engine', 'ejs');
-
-
-// Logging, Parsing, and Session Handling.
-app.use(require('morgan')('combined'));
-app.use(require('cookie-parser')());
-app.use(require('body-parser').urlencoded({ extended: true }));
-app.use(require('express-session')({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
-
 // Routes
 
 app.get('/', (req, res) => {
@@ -265,12 +255,11 @@ app.get('/', (req, res) => {
   })
 })
 
-app.get('/register', (req, res)=>{
+app.get('/register', (req, res) => {
 	return res.render('register');
 });
 
-app.get('/login',
-  function(req, res){
+app.get('/login', (req, res) => {
     res.render('login');
 });
 
@@ -308,8 +297,7 @@ app.get('/profile',
     })
   })
 
-app.get('/logout',
-  function(req, res){
+app.get('/logout', function(req, res){
     res.render('logout', { user: req.user });
   });
 
