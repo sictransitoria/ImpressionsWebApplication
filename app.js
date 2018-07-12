@@ -253,7 +253,7 @@ app.get('/', (req, res) => {
   .then((rows) => {
   	return res.render('live-gallery', {rows})
   })
-})
+});
 
 app.get('/register', (req, res) => {
 	return res.render('register');
