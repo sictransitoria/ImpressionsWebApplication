@@ -4,7 +4,7 @@ Most hiring managers expect their Junior Web Developers to work well in teams an
 
 Impressions is an application that resembles Instagram. Impressions has a basic file upload feature and user authentication.
 
-<h1>Web Dev Tools</h1>
+<h1>Tools</h1>
 
 We used the following web development tools to develop the app.
 
